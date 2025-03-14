@@ -6,4 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: appColors.background,
   },
+  itemSeparatorComponent: {
+    height: 10,
+  },
 });

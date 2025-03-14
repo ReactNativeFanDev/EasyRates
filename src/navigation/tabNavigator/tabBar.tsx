@@ -63,7 +63,7 @@ export default function CurrencyTabBar(props: BottomTabBarProps) {
                 <TabIcon
                   focused={isFocused}
                   color={iconColor}
-                  size={SCREEN_WIDTH * 0.1}
+                  size={SCREEN_WIDTH * 0.08}
                 />
               )}
             </View>

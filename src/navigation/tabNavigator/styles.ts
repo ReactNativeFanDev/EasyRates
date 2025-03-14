@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
   tabBarContainer: {
     backgroundColor: appColors.background,
     height: Dimensions.get('screen').height * 0.08,
+    borderTopWidth: 1,
+    borderTopColor: appColors.secondary500,
   },
   tabBar: {
     flexDirection: 'row',
@@ -29,8 +31,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   indicatorSquare: {
-    backgroundColor: appColors.secondary,
-    width: iconSize * 3,
+    backgroundColor: appColors.primary,
+    width: iconSize * 9,
     height: iconSize * 3,
     borderRadius: (iconSize * 1.7) / 2,
   },
