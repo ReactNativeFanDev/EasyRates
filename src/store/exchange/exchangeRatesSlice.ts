@@ -63,9 +63,6 @@ const exchangeRatesSlice = createSlice({
           state.base = action.payload.base;
           state.date = action.payload.date;
           state.lastUpdated = action.payload.lastUpdated;
-
-          console.log(action.payload.rates);
-
           state.favorites = state.favorites.map(fav => {
             const newRate = action.payload.rates[fav.currency];
             if (newRate !== undefined) {
