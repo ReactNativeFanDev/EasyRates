@@ -4,87 +4,101 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
-## Step 1: Start Metro
+## Step 1: Install Dependencies:
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
+Run npm install or yarn to install JavaScript dependencies.
 
 ```sh
 # Using npm
-npm start
-
-# OR using Yarn
-yarn start
+npm install
 ```
 
-## Step 2: Build and run your app
+## Step 2: Set Up Native Dependencies:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+For iOS: Run bundle exec pod install in the ios directory.
+
+```sh
+npx pod-install
+```
+
+## Step 3: Build and run your app
+
+For iOS: Use npm run ios or yarn ios to launch the app in the iOS Simulator.
+For Android: Use npm run android or yarn android to launch the app in the Android Emulator.
 
 ### Android
 
 ```sh
 # Using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
 ### iOS
 
 For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
 ```sh
 # Using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
 If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+## Alternative
 
-Now that you have successfully run the app, let's make changes!
+Open the project in Android Studio or Xcode and build/run directly.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Chosen Architecture and Design Decisions
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+React Native: The app is built using React Native for cross-platform compatibility.
 
-## Congratulations! :tada:
+Component-Based Architecture: The app is modular, with reusable components organized by feature (e.g., exchangeRate, favoriteList).
 
-You've successfully run and modified your React Native App. :partying_face:
+State Management: The app uses Redux Toolkit for centralized state management, with redux-persist for persisting state across sessions.
 
-### Now what?
+Navigation: Implements stack and tab navigation using libraries like react-navigation, as indicated by the navigation folder.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## App Structure and Main Components
 
-# Troubleshooting
+- **store**: Manages application state using Redux Toolkit. Includes:
+    - `exchangeRatesSlice`: Handles exchange rate data, favorites, and base currency.
+    - `persistConfig`: Configures redux-persist to store data in AsyncStorage.
+- **components**: Contains reusable UI components, such as:
+    - `CurrencyRenderItem`: Renders individual currency items.
+    - `FavoriteListEmptyComponent`: Displays a placeholder when no favorites are selected.
+- **screens**: Contains screen components for different app views:
+    - `ExchangeRateScreen`: Displays exchange rates.
+    - `FavoriteListScreen`: Manages the user's favorite currencies.
+- **navigation**: Configures stack and tab navigators for seamless navigation.
+- **utils**: Includes utility functions for error handling and formatting.
+- **constants**: Stores app-wide constants, such as API endpoints or default values.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Offline Mode Implementation
+
+Offline mode is achieved using:
+
+- **redux-persist**: Persists the Redux state to AsyncStorage, ensuring that exchange rate data, favorites, and the base currency are available even when offline.
+- **AsyncStorage**: Acts as the local storage mechanism for caching data.
+- **Rehydration**: On app launch, the persisted state is rehydrated to restore the last known data.
+
+
+## Additional Features or Libraries Used
+
+- **react-native-svg**: Used for rendering SVG assets, enabling scalable and high-quality vector graphics in the app.
+- **redux-persist**: Ensures data persistence across app sessions by storing Redux state in AsyncStorage. This allows the app to retain user preferences, exchange rate data, and favorites even when offline.
+- **react-navigation**: Provides stack and tab navigation for a smooth and intuitive user experience. Includes libraries such as:
+    - `@react-navigation/native`
+    - `@react-navigation/native-stack`
+    - `@react-navigation/bottom-tabs`
+- **AsyncStorage**: Acts as the local storage mechanism for caching data, supporting offline functionality.
+- **react-native-reanimated**: Enables smooth animations and transitions for an enhanced user interface.
+- **react-native-gifted-charts**: Used for creating visually appealing and interactive charts, such as historical exchange rate trends.
+- **react-native-responsive-fontsize**: Ensures text scales appropriately across different screen sizes for better readability.
+- **currency-icons**: Provides currency icons for a more visually engaging user interface.
 
 # Learn More
 
