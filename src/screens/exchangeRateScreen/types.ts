@@ -1,4 +1,4 @@
-export interface ExchangeItem {
+export interface exchangeItem {
   currency: string;
   rate: number;
 }

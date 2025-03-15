@@ -3,10 +3,7 @@ import {FlatList, View} from 'react-native';
 import {styles} from './styles';
 import useExchangeRateHook from './hooks';
 import CurrencyRenderItem from '../../components/exchangeRate/currencyRenderItem';
-
-function ItemSeparatorComponent() {
-  return <View style={styles.itemSeparatorComponent} />;
-}
+import ItemSeparatorComponent from '../../components/itemSeparator';
 
 export default function ExchangeRateScreen() {
   const {ratesArray, base} = useExchangeRateHook();
@@ -15,7 +12,7 @@ export default function ExchangeRateScreen() {
     <View style={styles.container}>
       <FlatList
         data={ratesArray}
-        renderItem={props => <CurrencyRenderItem {...props} base={base} />}
+        renderItem={({item}) => <CurrencyRenderItem item={item} base={base} />}
         ItemSeparatorComponent={ItemSeparatorComponent}
         ListHeaderComponent={ItemSeparatorComponent}
         ListFooterComponent={ItemSeparatorComponent}

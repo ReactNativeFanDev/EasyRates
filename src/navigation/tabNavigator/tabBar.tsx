@@ -1,10 +1,5 @@
-import React, {useEffect} from 'react';
-import {Dimensions, View} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, View, Animated} from 'react-native';
 import {styles} from './styles';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 
@@ -13,24 +8,19 @@ const SCREEN_WIDTH = Dimensions.get('screen').width;
 export default function CurrencyTabBar(props: BottomTabBarProps) {
   const {state, descriptors, navigation} = props;
   const tabNum = state.routes.length;
-  const indicatorPosition = useSharedValue(0);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{translateX: indicatorPosition.value}],
-  }));
+  const [indicatorPosition] = useState(new Animated.Value(0));
 
   const handleTabPress = (routeName: string) => {
     navigation.navigate(routeName);
   };
 
   useEffect(() => {
-    indicatorPosition.value = withSpring(
-      state.index * (SCREEN_WIDTH / tabNum),
-      {
-        damping: 20,
-        stiffness: 200,
-      },
-    );
+    Animated.spring(indicatorPosition, {
+      toValue: state.index * (SCREEN_WIDTH / tabNum),
+      useNativeDriver: true,
+      damping: 20,
+      stiffness: 200,
+    }).start();
   }, [state.index, indicatorPosition, tabNum]);
 
   return (
@@ -38,8 +28,10 @@ export default function CurrencyTabBar(props: BottomTabBarProps) {
       <Animated.View
         style={[
           styles.indicatorContainer,
-          animatedStyle,
-          {width: Dimensions.get('screen').width / tabNum},
+          {
+            width: SCREEN_WIDTH / tabNum,
+            transform: [{translateX: indicatorPosition}],
+          },
         ]}>
         <View style={styles.indicatorSquare} />
       </Animated.View>

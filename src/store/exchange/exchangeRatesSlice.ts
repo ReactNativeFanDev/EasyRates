@@ -9,6 +9,7 @@ const initialState: ExchangeRatesState = {
   lastUpdated: null,
   loading: false,
   error: null,
+  favorites: [],
 };
 
 const exchangeRatesSlice = createSlice({
@@ -18,6 +19,26 @@ const exchangeRatesSlice = createSlice({
     signInFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
+    },
+    addFavorite: (
+      state,
+      action: PayloadAction<{currency: string; rate: number; base: string}>,
+    ) => {
+      if (!state.favorites.includes(action.payload)) {
+        state.favorites.push(action.payload);
+      }
+    },
+    removeFavorite: (
+      state,
+      action: PayloadAction<{currency: string; rate: number; base: string}>,
+    ) => {
+      state.favorites = state.favorites.filter(
+        fav =>
+          !(
+            fav.currency === action.payload.currency &&
+            fav.base === action.payload.base
+          ),
+      );
     },
   },
   extraReducers: builder => {
@@ -42,6 +63,19 @@ const exchangeRatesSlice = createSlice({
           state.base = action.payload.base;
           state.date = action.payload.date;
           state.lastUpdated = action.payload.lastUpdated;
+
+          console.log(action.payload.rates);
+
+          state.favorites = state.favorites.map(fav => {
+            const newRate = action.payload.rates[fav.currency];
+            if (newRate !== undefined) {
+              console.log(
+                `Updating rate for ${fav.currency}${fav.base}: ${fav.rate} => ${newRate}`,
+              );
+              return {...fav, rate: newRate};
+            }
+            return fav;
+          });
         },
       )
       .addCase(
@@ -57,4 +91,5 @@ const exchangeRatesSlice = createSlice({
   },
 });
 
+export const {addFavorite, removeFavorite} = exchangeRatesSlice.actions;
 export default exchangeRatesSlice.reducer;

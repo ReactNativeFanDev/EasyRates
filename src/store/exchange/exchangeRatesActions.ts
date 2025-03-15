@@ -1,15 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {
-  ExchangeRatesState,
-  fetchExchangeRatesTypes,
-} from './exchangeRatesTypes';
+
 import {API_KEY} from '@env';
 import {handleBaseError} from '../../utils/errorHandler';
+import {ExchangeRatesTypes, fetchExchangeRatesTypes} from '../../types/api';
 
 export const fetchExchangeRates = createAsyncThunk(
   'exchangeRates/fetch',
   async (_, {getState, rejectWithValue}) => {
-    const state = getState() as {exchangeRates: ExchangeRatesState};
+    const state = getState() as {exchangeRates: ExchangeRatesTypes};
     const lastUpdated = state.exchangeRates.lastUpdated;
 
     if (lastUpdated && Date.now() - lastUpdated < 10 * 60 * 10000) {

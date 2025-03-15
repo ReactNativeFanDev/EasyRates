@@ -1,139 +1,65 @@
-import {Dimensions, Image, Platform, Text, View} from 'react-native';
-import {ExchangeItem} from '../../../screens/exchangeRateScreen/types';
-import {appColors, fontSize} from '../../../constants';
+import {Dimensions, Image, Pressable, Text, View} from 'react-native';
+import OpenSvg from '../../../assets/svg/openSvg';
+import {appColors} from '../../../constants';
+import CurrencyRenderHook from './hooks';
 import icons from 'currency-icons';
+import {styles} from './styles';
+import {exchangeItem} from '../../../screens/exchangeRateScreen/types';
 
 export default function CurrencyRenderItem({
   item,
   base,
 }: {
-  item: ExchangeItem;
+  item: exchangeItem;
   base: string;
 }) {
+  const {onPress} = CurrencyRenderHook({item, base});
+
   return (
-    <View
-      style={{
-        width: '94%',
-        backgroundColor: appColors.secondary800,
-        alignSelf: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 12,
-      }}>
-      <View
-        style={{
-          backgroundColor:
-            Platform.OS === 'ios'
-              ? appColors.secondary900
-              : appColors.background,
-          width: Dimensions.get('screen').width * 0.12,
-          height: Dimensions.get('screen').width * 0.12,
-          shadowColor: appColors.secondary0,
-          shadowOffset: {width: 0, height: 2},
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          borderRadius: Dimensions.get('screen').width * 0.06,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+    <View style={styles.container}>
+      <View style={styles.iconContainer}>
         {icons[item.currency]?.symbol ? (
-          <Text
-            style={{
-              color: appColors.secondary0,
-              fontSize: fontSize(12),
-            }}>
-            {icons[item.currency]?.symbol}
-          </Text>
+          <Text style={styles.iconText}>{icons[item.currency]?.symbol}</Text>
         ) : (
           <Image
             source={{uri: icons[item.currency]?.icon}}
-            style={{
-              width: Dimensions.get('screen').width * 0.05,
-              height: Dimensions.get('screen').width * 0.05,
-            }}
+            style={styles.iconImage}
           />
         )}
       </View>
 
-      <View style={{gap: 10}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              color: appColors.secondary0,
-              fontSize: fontSize(12),
-              width: Dimensions.get('screen').width * 0.3,
-            }}>
-            1
-          </Text>
+      <View style={styles.detailsContainer}>
+        <View style={styles.row}>
+          <Text style={styles.textWithWidth}>1</Text>
 
-          <View
-            style={{
-              height: '100%',
-              width: 2,
-              backgroundColor: appColors.secondary500,
-              marginLeft: 5,
-              marginRight: 20,
-            }}
-          />
+          <View style={styles.divider} />
 
-          <Text
-            style={{
-              color: appColors.secondary0,
-              fontSize: fontSize(12),
-            }}>
-            {base}
-          </Text>
+          <Text style={styles.text}>{base}</Text>
         </View>
 
-        <View
-          style={{
-            width: '90%',
-            alignSelf: 'center',
-            backgroundColor: appColors.secondary500,
-            height: 2,
-          }}
-        />
+        <View style={styles.horizontalDivider} />
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              color: appColors.secondary0,
-              fontSize: fontSize(12),
-              width: Dimensions.get('screen').width * 0.3,
-            }}>
-            {item.rate.toFixed(2)}
-          </Text>
+        <View style={styles.row}>
+          <Text style={styles.textWithWidth}>{item.rate.toFixed(2)}</Text>
 
-          <View
-            style={{
-              height: '100%',
-              width: 2,
-              backgroundColor: appColors.secondary500,
-              marginLeft: 5,
-              marginRight: 20,
-            }}
-          />
+          <View style={styles.divider} />
 
-          <Text
-            style={{
-              color: appColors.secondary0,
-              fontSize: fontSize(12),
-            }}>
-            {item.currency}
-          </Text>
+          <Text style={styles.text}>{item.currency}</Text>
         </View>
       </View>
+
+      <Pressable
+        onPress={onPress}
+        hitSlop={33}
+        style={({pressed}) => [
+          pressed && styles.onPress,
+          styles.buttonContainer,
+        ]}>
+        <OpenSvg
+          size={Dimensions.get('screen').width * 0.08}
+          color={appColors.primary}
+        />
+      </Pressable>
     </View>
   );
 }

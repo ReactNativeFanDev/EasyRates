@@ -1,8 +1,8 @@
-import {ExchangeItem} from '../types';
+import {exchangeItem} from '../types';
 
 export interface HooksProps {}
 
 export interface UseTranslatedResult {
-  ratesArray: ExchangeItem[];
+  ratesArray: exchangeItem[];
   base: string;
 }

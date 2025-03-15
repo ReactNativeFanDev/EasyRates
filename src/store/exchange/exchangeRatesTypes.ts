@@ -5,6 +5,7 @@ export interface ExchangeRatesState {
   error: string | null;
   base: string;
   date: string;
+  favorites: {currency: string; rate: number; base: string}[];
 }
 
 export interface fetchExchangeRatesTypes {

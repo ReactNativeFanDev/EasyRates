@@ -8,7 +8,7 @@ import exchangeRatesReducer from './exchange/exchangeRatesSlice';
 const exchangeRatesPersistConfig = {
   key: 'exchangeRates',
   storage: AsyncStorage,
-  whitelist: ['rates', 'lastUpdated'],
+  whitelist: ['rates', 'lastUpdated', 'favorites'],
 };
 
 const persistedExchangeRatesReducer = persistReducer(
