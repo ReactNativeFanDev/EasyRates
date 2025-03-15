@@ -6,18 +6,25 @@ import {ExchangeRatesTypes, fetchExchangeRatesTypes} from '../../types/api';
 
 export const fetchExchangeRates = createAsyncThunk(
   'exchangeRates/fetch',
-  async (_, {getState, rejectWithValue}) => {
+  async (
+    {base, forceUpdate}: {base: string; forceUpdate?: boolean},
+    {getState, rejectWithValue},
+  ) => {
     const state = getState() as {exchangeRates: ExchangeRatesTypes};
     const lastUpdated = state.exchangeRates.lastUpdated;
 
-    if (lastUpdated && Date.now() - lastUpdated < 10 * 60 * 10000) {
+    if (
+      !forceUpdate &&
+      lastUpdated &&
+      Date.now() - lastUpdated < 10 * 60 * 1000
+    ) {
       console.log('Дані актуальні, оновлення не потрібне');
       return rejectWithValue('Дані актуальні, оновлення не потрібне');
     }
 
     try {
       const response = await fetch(
-        `https://data.fixer.io/api/latest?access_key=${API_KEY}`,
+        `https://data.fixer.io/api/latest?access_key=${API_KEY}&base=${base}`,
       );
 
       const data: fetchExchangeRatesTypes = await response.json();

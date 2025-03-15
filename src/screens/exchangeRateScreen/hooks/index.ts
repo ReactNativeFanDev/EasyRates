@@ -15,8 +15,8 @@ export default function useExchangeRateHook(): UseTranslatedResult {
   );
 
   useEffect(() => {
-    dispatch(fetchExchangeRates());
-  }, [dispatch]);
+    dispatch(fetchExchangeRates({base: exchangeRates.base}));
+  }, [dispatch, exchangeRates.base]);
 
   return {
     ratesArray,
