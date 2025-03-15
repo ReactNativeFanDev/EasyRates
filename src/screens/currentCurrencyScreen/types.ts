@@ -1,4 +1,4 @@
-import {RouteProp} from '@react-navigation/native';
+import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {
   RootStackParamList,
   Routes,
@@ -6,4 +6,5 @@ import {
 
 export type Props = {
   route: RouteProp<RootStackParamList, Routes.CurrentCurrencyScreen>;
+  navigation: NavigationProp<RootStackParamList>;
 };

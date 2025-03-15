@@ -5,9 +5,12 @@ import useCurrentCurrencyHook from './hooks';
 import {styles} from './styles';
 import {Props} from './types';
 
-export default function CurrentCurrencyScreen({route}: Props) {
+export default function CurrentCurrencyScreen({route, navigation}: Props) {
   const {base, item} = route.params;
-  const {onSavePressHandler, favorite} = useCurrentCurrencyHook({item});
+  const {onSavePressHandler, favorite} = useCurrentCurrencyHook({
+    item,
+    navigation,
+  });
 
   return (
     <View style={styles.container}>
