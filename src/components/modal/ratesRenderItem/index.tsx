@@ -19,7 +19,7 @@ export default function RatesRenderItem({
 
       <Pressable
         onPress={() => updateBaseRatePressHandler({base: currency})}
-        style={({pressed}) => [pressed && styles.pressedStyle]}>
+        style={({pressed}) => pressed && styles.pressedStyle}>
         <OpenSvg
           size={Dimensions.get('screen').width * 0.075}
           color={appColors.primary}

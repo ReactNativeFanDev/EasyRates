@@ -1,4 +1,11 @@
-import {Dimensions, Image, Pressable, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import OpenSvg from '../../../assets/svg/openSvg';
 import {appColors} from '../../../constants';
 import CurrencyRenderHook from './hooks';
@@ -51,10 +58,9 @@ export default function CurrencyRenderItem({
       <Pressable
         onPress={onPress}
         hitSlop={33}
-        style={({pressed}) => [
-          pressed && styles.onPress,
-          styles.buttonContainer,
-        ]}>
+        style={({pressed}) =>
+          StyleSheet.compose(pressed && styles.onPress, styles.buttonContainer)
+        }>
         <OpenSvg
           size={Dimensions.get('screen').width * 0.08}
           color={appColors.primary}

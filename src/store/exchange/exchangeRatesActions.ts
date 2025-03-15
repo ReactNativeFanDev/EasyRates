@@ -16,7 +16,7 @@ export const fetchExchangeRates = createAsyncThunk(
     if (
       !forceUpdate &&
       lastUpdated &&
-      Date.now() - lastUpdated < 10 * 60 * 1000
+      Date.now() - lastUpdated < 30 * 60 * 1000
     ) {
       console.log('Дані актуальні, оновлення не потрібне');
       return rejectWithValue('Дані актуальні, оновлення не потрібне');

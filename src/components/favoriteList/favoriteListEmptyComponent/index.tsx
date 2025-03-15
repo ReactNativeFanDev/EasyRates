@@ -1,5 +1,5 @@
 import EmptyWallet from '../../../assets/svg/emptyWallet';
-import {Dimensions, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {appColors} from '../../../constants';
 import {styles} from './styles';
 
@@ -10,7 +10,11 @@ export default function FavoriteListEmptyComponent() {
         <Text style={styles.text}>Your list of favorite rates is empty</Text>
       </View>
 
-      <View style={[styles.textContainer, styles.bottomTextContainer]}>
+      <View
+        style={StyleSheet.compose(
+          styles.textContainer,
+          styles.bottomTextContainer,
+        )}>
         <Text style={styles.text}>
           To add, go to the exchange rates section, open a rate, and then you
           will be able to save it to your favorites

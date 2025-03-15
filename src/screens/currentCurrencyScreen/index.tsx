@@ -1,4 +1,4 @@
-import {Dimensions, Pressable, Text, View} from 'react-native';
+import {Dimensions, Pressable, StyleSheet, Text, View} from 'react-native';
 import {appColors, fakeGrafData} from '../../constants';
 import {LineChart} from 'react-native-gifted-charts';
 import useCurrentCurrencyHook from './hooks';
@@ -54,10 +54,12 @@ export default function CurrentCurrencyScreen({route, navigation}: Props) {
         onPress={() =>
           onSavePressHandler({currency: item.currency, rate: item.rate, base})
         }
-        style={({pressed}) => [
-          styles.saveButton,
-          pressed && styles.saveButtonPressed,
-        ]}>
+        style={({pressed}) =>
+          StyleSheet.compose(
+            pressed && styles.saveButtonPressed,
+            styles.saveButton,
+          )
+        }>
         <Text style={styles.saveButtonText}>
           {favorite ? 'Remove' : 'Save'}
         </Text>

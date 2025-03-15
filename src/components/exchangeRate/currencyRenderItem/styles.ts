@@ -1,6 +1,9 @@
 import {Dimensions, Platform, StyleSheet} from 'react-native';
 import {appColors, fontSize} from '../../../constants';
 
+const iconImageSize = Dimensions.get('screen').width * 0.05;
+const iconContainerSize = Dimensions.get('screen').width * 0.12;
+
 export const styles = StyleSheet.create({
   container: {
     width: '94%',
@@ -16,13 +19,13 @@ export const styles = StyleSheet.create({
   iconContainer: {
     backgroundColor:
       Platform.OS === 'ios' ? appColors.secondary900 : appColors.background,
-    width: Dimensions.get('screen').width * 0.12,
-    height: Dimensions.get('screen').width * 0.12,
+    width: iconContainerSize,
+    height: iconContainerSize,
     shadowColor: appColors.secondary0,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    borderRadius: Dimensions.get('screen').width * 0.06,
+    borderRadius: iconContainerSize / 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -31,8 +34,8 @@ export const styles = StyleSheet.create({
     fontSize: fontSize(12),
   },
   iconImage: {
-    width: Dimensions.get('screen').width * 0.05,
-    height: Dimensions.get('screen').width * 0.05,
+    width: iconImageSize,
+    height: iconImageSize,
   },
   detailsContainer: {
     gap: 10,
