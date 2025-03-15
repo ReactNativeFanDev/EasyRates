@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   indicatorSquare: {
     backgroundColor: appColors.primary,
     width: iconSize * 9,
-    height: iconSize * 3,
+    height: iconSize * 2.5,
     borderRadius: (iconSize * 1.7) / 2,
   },
 });
