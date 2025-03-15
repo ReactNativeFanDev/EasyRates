@@ -79,6 +79,49 @@ The app is designed with the following architecture and design principles:
 - **utils**: Includes utility functions for error handling and formatting.
 - **constants**: Stores app-wide constants, such as API endpoints or default values.
 
+## API Integration
+
+The app integrates with the Fixer.io API to fetch real-time currency exchange rates. The API is used to retrieve exchange rates, base currency information, and the last updated timestamp. The integration is implemented using `fetch` in the `fetchExchangeRates` action.
+
+### API Configuration
+
+- **API Key**: The API key is stored securely in an `.env` file and accessed using the `react-native-dotenv` library. Ensure you create an `.env` file in the root directory with the following content:
+
+```env
+FIXER_API_KEY=your_api_key_here
+```
+
+- **Environment Setup**: The `.env` file is excluded from version control using `.gitignore` to prevent exposing sensitive information. Replace `your_api_key_here` with your actual API key.
+
+### API Call Logic
+
+The API call is implemented in the `fetchExchangeRates` action:
+
+- **Endpoint**: `https://data.fixer.io/api/latest`
+- **Parameters**:
+    - `access_key`: The API key from the `.env` file.
+    - `base`: The base currency for the exchange rates.
+- **Caching**: The app avoids unnecessary API calls by checking if the last update was within 30 minutes. If the data is still valid, the API call is skipped.
+
+### Error Handling
+
+The app includes robust error handling to manage API failures and unexpected issues. The `handleBaseError` utility function is used to process and display error messages.
+
+#### Error Handling Features
+
+- **Network Errors**: If there is no internet connection, the app displays a user-friendly alert prompting the user to check their connection.
+- **Server Errors**: If the API returns an error response, the app parses the error and displays the appropriate message.
+- **Unexpected Errors**: For any other errors, a generic message is shown to the user.
+
+### Security of API Keys
+
+To ensure the security of API keys:
+
+- **Environment Variables**: API keys are stored in an `.env` file and accessed using `react-native-dotenv`.
+- **Version Control**: The `.env` file is excluded from version control using `.gitignore`.
+- **Best Practices**: Avoid hardcoding API keys directly in the source code to prevent accidental exposure.
+
+
 ## Offline Mode Implementation
 
 Offline mode is achieved using:
