@@ -54,13 +54,15 @@ Open the project in Android Studio or Xcode and build/run directly.
 
 ## Chosen Architecture and Design Decisions
 
-React Native: The app is built using React Native for cross-platform compatibility.
+The app is designed with the following architecture and design principles:
 
-Component-Based Architecture: The app is modular, with reusable components organized by feature (e.g., exchangeRate, favoriteList).
+- **React Native**: Built using React Native to ensure cross-platform compatibility and a native-like user experience on both iOS and Android devices.
 
-State Management: The app uses Redux Toolkit for centralized state management, with redux-persist for persisting state across sessions.
+- **Component-Based Architecture**: The app follows a modular design, with reusable components organized by feature (e.g., `exchangeRate`, `favoriteList`) to promote maintainability and scalability.
 
-Navigation: Implements stack and tab navigation using libraries like react-navigation, as indicated by the navigation folder.
+- **State Management**: Centralized state management is achieved using Redux Toolkit, which simplifies state handling and improves code readability. Additionally, `redux-persist` is used to persist state across sessions, ensuring a seamless user experience.
+
+- **Navigation**: Implements stack and tab navigation using the `react-navigation` library, providing an intuitive and smooth navigation experience. The navigation folder contains configurations for both stack and tab navigators.
 
 ## App Structure and Main Components
 
