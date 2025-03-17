@@ -19,6 +19,7 @@ export default function FavoriteListScreen() {
         renderItem={({item, section}) => (
           <CurrencyRenderItem item={item} base={section.title} />
         )}
+        ListHeaderComponent={ItemSeparatorComponent}
         ItemSeparatorComponent={ItemSeparatorComponent}
         SectionSeparatorComponent={ItemSeparatorComponent}
         renderSectionHeader={({section}) => (
